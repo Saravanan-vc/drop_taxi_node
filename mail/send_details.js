@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const content = (time, date, name, number, amount, km, from, to) => {
+const content = (time, date, name, number, amount, services, from, to) => {
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -191,7 +191,7 @@ const content = (time, date, name, number, amount, km, from, to) => {
             <div>Amount: ${amount}</div>
             
           </div>
-          <div>KM: ${km}</div>
+          <div>services: ${services}</div>
         </section>
   
         <div class="vehicle-visual">
@@ -203,11 +203,11 @@ const content = (time, date, name, number, amount, km, from, to) => {
     `;
 };
 
-const mailoptions = (time, date, name, number, amount, km, from, to) => ({
+const mailoptions = (time, date, name, number, amount, services, from, to) => ({
     from: process.env.AUTH_USER,
     to: process.env.RECIVER_MAIL,
     subject: "NEW ORDER",
-    html: content(time, date, name, number, amount, km, from, to)
+    html: content(time, date, name, number, amount, services, from, to)
 });
 
 module.exports = mailoptions;

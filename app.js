@@ -14,9 +14,9 @@ host.use(cros());
 
 
 router.post("/neworder", (req, res) => {
-    const { time, date, name, number, amount, km, from, to } = req.body;
+    const { time, date, name, number, amount, services, from, to } = req.body;
     console.log(req.body);
-    if (!time || !date || !name || !number || !amount || !km || !from || !to) {
+    if (!time || !date || !name || !number || !amount || !services || !from || !to) {
         return res.status(400).json({ 'value': "missing fields" });
     }
     try {
@@ -29,7 +29,7 @@ router.post("/neworder", (req, res) => {
                 pass: process.env.AUTH_PASS,
             },
         });
-        const options = mailoptions(time, date, name, number, amount, km, from, to)
+        const options = mailoptions(time, date, name, number, amount, services, from, to)
         transporter.sendMail(options, (error, info) => {
             if (error) {
                 console.log(`Error sending email: ${error}`);
