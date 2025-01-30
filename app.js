@@ -14,10 +14,10 @@ host.use(cros());
 
 
 router.post("/neworder", (req, res) => {
-    const { time, date, name, number, amount, km, from, to} = req.body;
-     if(time && date && name && number && amount && km && from && to){
-        res.status(400).json({'value':"notcoming"});
-     }
+    const { time, date, name, number, amount, km, from, to } = req.body;
+    if (!time || !date || !name || !number || !amount || !km || !from || !to) {
+        return res.status(400).json({ 'value': "missing fields" });
+    }
     try {
         const transporter = nodemailer.createTransport({
             host: process.env.TRANSPORT_HOST,
@@ -26,7 +26,7 @@ router.post("/neworder", (req, res) => {
             auth: {
                 user: process.env.AUTH_USER,
                 pass: process.env.AUTH_PASS,
-            },        
+            },
         });
         const options = mailoptions(time, date, name, number, amount, km, from, to)
         transporter.sendMail(options, (error, info) => {
