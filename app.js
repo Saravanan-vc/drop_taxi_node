@@ -5,14 +5,19 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const host = express();
 const router = express.Router();
+const cross = require('cross');
 
 
 host.use(bodyParser.json());
+host.use(cross());
 
 
 
 router.post("/neworder", (req, res) => {
     const { time, date, name, number, amount, km, from, to} = req.body;
+     if(time && date && name && number && amount && km && from && to){
+        res.status(400).json({'value':"notcoming"});
+     }
     try {
         const transporter = nodemailer.createTransport({
             host: process.env.TRANSPORT_HOST,
