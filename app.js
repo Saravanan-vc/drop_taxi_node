@@ -15,6 +15,7 @@ host.use(cros());
 
 router.post("/neworder", (req, res) => {
     const { time, date, name, number, amount, km, from, to } = req.body;
+    console.log(req.body);
     if (!time || !date || !name || !number || !amount || !km || !from || !to) {
         return res.status(400).json({ 'value': "missing fields" });
     }
