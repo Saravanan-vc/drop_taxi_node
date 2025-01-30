@@ -5,11 +5,11 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const host = express();
 const router = express.Router();
-const cross = require('cross');
+const cros = require('cors');
 
 
 host.use(bodyParser.json());
-host.use(cross());
+host.use(cros());
 
 
 
